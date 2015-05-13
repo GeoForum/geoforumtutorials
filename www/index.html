@@ -1,10 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html ng-app>
 <head>
-  <title>Geoforum Tutorials</title>
+  <meta charset="utf8">
+  <title>Geoforum Veiledninger</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/angular.js"></script>
 </head>
 <body>
-  <h1>Geoforum Tutorials</h1>
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut repudiandae odio, fugit eius quidem, cum molestiae provident rem explicabo dolorum, sunt a maxime pariatur! Quibusdam laboriosam minima dolor nihil saepe!</p>
+<div class="jumbotron">
+  <div class="container">
+    <h1>Geoforum Veiledninger</h1>
+    <p> 
+      <a href="veiledning01/">Veiledning 1</a>
+      <a href="veiledning02/">Veiledning 2</a>
+      <a href="veiledning03/">Veiledning 3</a>
+    </p>
+  </div>
+</div> <!-- jumbotron -->
+
+<div class="container MainContentContainer">
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="well">
+        <span ng-include="'content/intro01.html'"></span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="well">
+        <span ng-include="'content/intro01.html'"></span>
+      </div>
+    </div>
+  </div> <!-- row -->
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-6">
+      <div class="well">
+        <span ng-include="'content/intro01.html'"></span>
+      </div>
+    </div>
+  </div> <!-- row -->
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="well">
+        <span ng-include="'content/intro01.html'"></span>
+      </div>
+    </div>
+  </div> <!-- row -->
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="well">
+        <span ng-include="'content/intro01.html'"></span>
+      </div>
+    </div>
+  </div> <!-- row -->
+
+</div> <!-- MainContentContainer -->
+
 </body>
 </html>
