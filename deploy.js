@@ -27,9 +27,25 @@ var files = [
 for (var i = 0; i < files.length; i++) {
   var fileSet = files[i]; 
   //console.log(fileSet);
-  fs.copy(fileSet[0],fileSet[1], function (err) {
+  fs.copySync(fileSet[0],fileSet[1]);
+  /*fs.copy(fileSet[0],fileSet[1], function (err) {
     if (err) return console.error(err);
-    //console.log('copied: ',fileSet[0],fileSet[1]);
-  });
+  });*/
 };
 
+var demoDirs = [
+   'www/veiledning01/'
+  ,'www/veiledning02/'
+  ,'www/veiledning03/'
+  ,'www/veiledning04/'
+];
+
+for (var i = 0; i < demoDirs.length; i++) {
+  var dest = demoDirs[i];
+  fs.copy('www/js/',dest+'js/', function (err) {
+    if (err) return console.error(err);
+  });
+  fs.copy('www/css/',dest+'css/', function (err) {
+    if (err) return console.error(err);
+  });
+};
