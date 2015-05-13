@@ -13,6 +13,7 @@ var files = [
   ,['node_modules/jquery/dist/jquery.min.js', 'www/js/jquery.min.js']
   // Leaflet:
   ,['node_modules/leaflet/dist/leaflet.js', 'www/js/leaflet.js']
+  ,['node_modules/leaflet/dist/leaflet.css', 'www/css/leaflet.css']
   ,['node_modules/leaflet/dist/leaflet-src.js', 'www/js/leaflet-src.js']
   ,['node_modules/leaflet/dist/images/', 'www/img/leaflet']
     // Leaflet plugins:
@@ -24,13 +25,12 @@ var files = [
     ,['node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css', 'www/css/MarkerCluster.Default.css']
 ];
 
+fs.removeSync('www/js');
+fs.removeSync('www/css');
+
 for (var i = 0; i < files.length; i++) {
-  var fileSet = files[i]; 
-  //console.log(fileSet);
-  fs.copySync(fileSet[0],fileSet[1]);
-  /*fs.copy(fileSet[0],fileSet[1], function (err) {
-    if (err) return console.error(err);
-  });*/
+  var fileSet = files[i], src = fileSet[0], dest = fileSet[1]; 
+  fs.copySync(src,dest);
 };
 
 var demoDirs = [
@@ -41,11 +41,9 @@ var demoDirs = [
 ];
 
 for (var i = 0; i < demoDirs.length; i++) {
-  var dest = demoDirs[i];
-  fs.copy('www/js/',dest+'js/', function (err) {
-    if (err) return console.error(err);
-  });
-  fs.copy('www/css/',dest+'css/', function (err) {
-    if (err) return console.error(err);
-  });
+  var dest = demoDirs[i], destJS = dest+'js/', destCSS = dest+'css/';
+  fs.removeSync(destJS);
+  fs.removeSync(destCSS);
+  fs.copySync('www/js/',destJS);
+  fs.copySync('www/css/',destCSS);
 };
