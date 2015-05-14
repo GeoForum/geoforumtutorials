@@ -1,11 +1,12 @@
 # Basic markdown
 [Read about basic md](https://help.github.com/articles/markdown-basics/)
 
-## The second largest heading (an h2 tag)
-...
+[Read markdown cheat sheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet "md cheat sheet")
+
+```###### The 6th largest heading (an h6 tag)
 ###### The 6th largest heading (an h6 tag)
 
-### BLOCKQUOTE
+### Blockquote
 In the words of Abraham Lincoln:
 
 > Pardon my french. 
@@ -126,3 +127,23 @@ Content Cell  | Content Cell
 | Help      | Display the help window.|
 | Close     | Closes a window     |
 
+## Images
+
+Here's our logo (hover to see the title text):
+
+Inline-style: 
+
+full path
+
+![geoforum image](https://github.com/GeoForum/geoforumtutorials/blob/master/www/img/leaflet/marker-icon-2x.png?raw=true "full path icon")
+
+relative path
+
+![geoforum image](www/img/leaflet/marker-icon-2x.png "Relative path Leaflet icon 2x")
+
+![geoforum image](www/img/leaflet/marker-icon-2x.png?raw=true "Relative path Leaflet icon 2x")
+
+Reference-style: 
+![alt text][img1]
+
+[img1]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
