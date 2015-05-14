@@ -39,7 +39,7 @@ Html dokumentet skal inneholde et element som kartet renderes i, her `<div class
     , layers: layers
   })
 ```
-Hvis du tester siden i din browser nå, vil du se, at det siste laget legger seg øverst og de andre lag ikke kan sees. For å kunne skiftet mellom lagene, tilføyes et verktøy til å skifte lag:
+Hvis du tester siden i din nettleser nå, vil du se, at det siste laget legger seg øverst og de andre lag ikke kan sees. For å kunne skiftet mellom lagene, tilføyes et verktøy til å skifte lag:
 
 ```js
   var baseMaps = {
@@ -54,3 +54,32 @@ Hvis du tester siden i din browser nå, vil du se, at det siste laget legger seg
 Voila, du har nå et simpelt kart på siden din som ser slik ut:
 
 ![eks01a](img/eks01a.jpg)
+
+## Kart-projeksjoner og konvertering
+
+Jorden er en kule og både papir og skjerme er flat - og det finnes derfor mange måter å projisere data fra kule til flate på. Både leaflet og lignende (fx OpenLayers, Google Maps mv) bruker som utgangspunkt en Mercator-projeksjon med koden "EPSG:3857", mens det er vanlig i Norge å bruke UTM projeksjoner som er tilpasset lokalt bruk. Disse har fx koder som "EPSG:25832", "EPSG:32632", "EPSG:25833" og "EPSG:32633".
+
+Åpne data fra fx Statens Kartverk mv er ofte tilgjengelig i disse projeksjoner, og kan derfor være nødvendig å konvertere mellom forskjellige projeksjoner. Det kan gjøres på mange måter, vil vi gjøre det med en javascript-komponent kallet [Proj4js](http://proj4js.org/).
+
+Vi skal ikke gå i dybden med projeksjoner i denne veiledning, men her er en kort oversikt over noen fordeler og ulemper:
+
+#### Mercator
+* Fordeler:
+  * Globalt koordinatsystem.
+  * Viser lett hele kloden på et kart.
+* Ulemper:
+  * Områder langt fra ekvator vises svært forvrengt.
+  * Koordinatsystemet er ikke kvadratisk.
+  * Enheten for koordinater er grader, som kan være vanskelig å lage beregninger på.
+
+#### UTM
+* Fordeler:
+  * Enheten for koordinater er meter.
+  * Koordinatsystemet er kvadratisk.
+* Ulemper:
+  * Koordinatsystemet dekker et begrenset område, en såkalt UTM-zone.
+
+Vil du vite mer om forskjellige koordinatsystem, kan du bla lese mer her ... [savner linker](http://foo.bar/):
+* http://www.sharpgis.net/post/2007/05/05/Spatial-references2c-coordinate-systems2c-projections2c-datums2c-ellipsoids-e28093-confusing
+* https://en.wikipedia.org/wiki/Spatial_reference_system
+* http://communityhub.esriuk.com/journal/2012/3/26/coordinate-systems-and-projections-for-beginners.html
