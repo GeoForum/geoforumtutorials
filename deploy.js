@@ -23,6 +23,9 @@ var files = [
     ,['node_modules/leaflet.markercluster/dist/leaflet.markercluster-src.js', 'www/js/leaflet.markercluster-src.js']
     ,['node_modules/leaflet.markercluster/dist/MarkerCluster.css', 'www/css/MarkerCluster.css']
     ,['node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css', 'www/css/MarkerCluster.Default.css']
+  // Proj4js
+  ,['node_modules/proj4/dist/proj4.js', 'www/js/proj4.js']
+  ,['node_modules/proj4/dist/proj4-src.js', 'www/js/proj4-src.js']
 ];
 
 fs.removeSync('www/js');
