@@ -15,7 +15,7 @@ var files = [
   ,['node_modules/leaflet/dist/leaflet.js', 'www/js/leaflet.js']
   ,['node_modules/leaflet/dist/leaflet.css', 'www/css/leaflet.css']
   ,['node_modules/leaflet/dist/leaflet-src.js', 'www/js/leaflet-src.js']
-  ,['node_modules/leaflet/dist/images/', 'www/img/leaflet']
+  ,['node_modules/leaflet/dist/images/', 'www/css/images']
     // Leaflet plugins:
     ,['node_modules/leaflet-omnivore/leaflet-omnivore.js', 'www/js/leaflet-omnivore.js']
     ,['node_modules/leaflet-omnivore/leaflet-omnivore.min.js', 'www/js/leaflet-omnivore.min.js']
@@ -44,9 +44,11 @@ var demoDirs = [
 ];
 
 for (var i = 0; i < demoDirs.length; i++) {
-  var dest = demoDirs[i], destJS = dest+'js/', destCSS = dest+'css/';
-  fs.removeSync(destJS);
-  fs.removeSync(destCSS);
+  var dest = demoDirs[i], destJS = dest+'js/', 
+    destCSS = dest+'css/', destIMG = dest+'img/';
+  // fs.removeSync(destJS);
+  // fs.removeSync(destCSS);
   fs.copySync('www/js/',destJS);
   fs.copySync('www/css/',destCSS);
+  //fs.copySync('www/img/',destIMG);
 };
