@@ -35,6 +35,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, obcaecati?
 ## Code
 ### Inline
 
+```Here's an idea: why don't we take `SuperiorProject` and turn it into `**Reasonable**Project`.```
 Here's an idea: why don't we take `SuperiorProject` and turn it into `**Reasonable**Project`.
 
 ### Block
@@ -131,19 +132,29 @@ Content Cell  | Content Cell
 
 Here's our logo (hover to see the title text):
 
-Inline-style: 
+### Inline-style: 
 
-full path
-
-![geoforum image](https://github.com/GeoForum/geoforumtutorials/blob/master/www/img/leaflet/marker-icon-2x.png?raw=true "full path icon")
+full path - note the trailing ?raw=true
+```markdown
+![alt txt 1]
+(https://github.com/GeoForum/geoforumtutorials/blob/master/www/img/leaflet/marker-icon-2x.png?raw=true 
+"full path icon")
+```
+![alt txt 1](https://github.com/GeoForum/geoforumtutorials/blob/master/www/img/leaflet/marker-icon-2x.png?raw=true "full path icon")
 
 relative path
+`![alt txt 2](www/img/leaflet/marker-icon-2x.png "Relative path Leaflet icon 2x")`
+![alt txt 2](www/img/leaflet/marker-icon-2x.png "Relative path Leaflet icon 2x")
 
-![geoforum image](www/img/leaflet/marker-icon-2x.png "Relative path Leaflet icon 2x")
+### Reference-style: 
+```
+Lorem ipsum dolor sit amet.
+![ref style alt txt][img1]
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, ipsa!
+[img1]: www/img/leaflet/marker-icon-2x.png "ref style"
+```
 
-![geoforum image](www/img/leaflet/marker-icon-2x.png?raw=true "Relative path Leaflet icon 2x")
-
-Reference-style: 
-![alt text][img1]
-
-[img1]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
+Lorem ipsum dolor sit amet.
+![ref style alt txt][img1]
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, atque?
+[img1]: www/img/leaflet/marker-icon-2x.png "ref style"
