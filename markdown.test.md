@@ -91,7 +91,7 @@ do_this_and_do_that_and_another_thing.
 
 ## Code blocks
 using \```
-```
+```js
 function test() {
   console.log("notice the blank line before this function?");
 }
