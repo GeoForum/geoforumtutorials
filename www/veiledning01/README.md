@@ -7,13 +7,13 @@ Nødvendig kode og filer er tilgjengelig på [github](https://github.com/GeoForu
 ## Lag et kart med LeafletJS
 Last ned [leafletjs](http://leafletjs.com/download.html) og legg filene et passende sted under "doc root" på ditt site - her er valgt å legge javascript filer unde `js/` og ccs filer under `jss/`. Lag en html fil - [se eksempel01.html](eksempel01.html) som linker til leaflet filene og andre ressurser.
 
-```
+```html
 <link rel="stylesheet" type="text/css" href="css/leaflet.css">
 <script type="text/javascript" src="js/leaflet.js"></script>
 <script type="text/javascript" src="js/eks01.js"></script>
 ```
 eller bruk alternativt hosted versjon av filene:
-```
+```html
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 <script type="text/javascript" src="js/eks01.js"></script>
