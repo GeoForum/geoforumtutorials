@@ -7,8 +7,8 @@ var data = require('./trafikkulykker02.nvdb.json');
 
 var vegObr = data.resultater[0].vegObjekter;
 
-// for (var i = 0; i < vegObr.length; i++) {
-for (var i = 0; i < 5; i++) {
+for (var i = 0; i < vegObr.length; i++) {
+// for (var i = 0; i < 5; i++) {
   var vo = vegObr[i];
   console.log(vo.objektId,vo.objektTypeId,vo.lokasjon);
   console.log(vo);

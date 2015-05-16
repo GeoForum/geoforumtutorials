@@ -1,0 +1,14 @@
+git rm www/veiledning01/js/angular.js
+git rm www/veiledning01/js/angular.min.js
+git rm www/veiledning01/js/bootstrap.min.js
+git rm www/veiledning01/js/jquery.min.js
+git rm www/veiledning01/js/leaflet.js
+git rm www/veiledning01/js/leaflet.markercluster.js
+git rm www/veiledning01/js/leaflet.markercluster-src.js
+git rm www/veiledning01/js/leaflet-omnivore.js
+git rm www/veiledning01/js/leaflet-omnivore.min.js
+git rm www/veiledning01/js/leaflet-src.js
+git rm www/veiledning01/js/proj4.js
+git rm www/veiledning01/js/proj4-src.js
+git rm www/veiledning01/js/wellknown.js
+
