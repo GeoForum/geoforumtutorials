@@ -2,28 +2,26 @@
 <html>
 <head>
   <meta charset="utf8">
-  <title>Eksempel 1</title>
+  <title>Eksempel 3</title>
   
+  <script type="text/javascript" src="js/vendor/jquery.min.js"></script>
+
 <!--   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css"> -->
+
   <link rel="stylesheet" type="text/css" href="css/leaflet.css">
-  
   <script type="text/javascript" src="js/vendor/leaflet-src.js"></script>
-<!--   
-  <script type="text/javascript" src="js/leaflet-omnivore.js"></script>
-   -->  
-<!-- 
-    <script type="text/javascript" src="js/papaparse.js"></script>
-     -->
-<!--      
-  <script type="text/javascript" src="js/wellknown.js"></script>
-  
-  <script type="text/javascript" src="js/jquery.min.js"></script>
- -->
+
+  <script type="text/javascript" src="js/vendor/wellknown.js"></script> 
+
+  <script type="text/javascript" src="js/vendor/leaflet.markercluster-src.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/MarkerCluster.css">
+  <link rel="stylesheet" type="text/css" href="css/MarkerCluster.Default.css">
+
  <!-- 
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
    -->
-  <script type="text/javascript" src="js/eks01.js"></script>
+  <script type="text/javascript" src="js/eks03.js"></script>
   
   <style type="text/css">
     body, html {
@@ -36,11 +34,15 @@
       margin: 0 2em;
       display: block;
     }
+    .info {
+      margin: 1em 2em;
+    }
   </style>
 </head>
 <body>
-  <h1>Eksempel 1</h1>
+  <h1>Eksempel 3</h1>
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, maiores!</p>
   <div class="map" id="map"></div>
+  <div class="info" id="info"></div>
 </body>
 </html>

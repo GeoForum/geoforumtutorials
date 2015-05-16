@@ -55,7 +55,7 @@ Hvis du tester siden i din nettleser nå, vil du se, at det siste laget legger s
 
 Voila, du har nå et simpelt kart på siden din som ser slik ut:
 
-![eks01a](img/eks01a.jpg)
+![eks01a](img/eks01b.jpg)
 
 <!-- 
 ## Kart-projeksjoner og konvertering
@@ -160,3 +160,5 @@ m.on('popupclose', function(e){
 });
 ```
 
+Du har nå et kart som ser slik ut:
+![eks01a](img/eks02a.jpg)
