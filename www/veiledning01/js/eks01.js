@@ -38,8 +38,7 @@ var createMap = function(){
   var overlays = {};
   L.control.layers(baseMaps, overlays).addTo(map);
 
-  // var marker = L.marker([59.91118, 10.70297]).addTo(map);
-
+  // For debugging:
   map.on('click', function (e) {
     log("You clicked the map at " + e.latlng); 
   });
@@ -53,14 +52,8 @@ var loadData = function(){
   og:
   +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs
 */
-  proj4.defs('EPSG:32633', "+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs");
+  // proj4.defs('EPSG:32633', "+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs");
   // proj4.defs('EPSG:32633', "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs");
-
-  // Operahouse leaflet epsg epsg3857: LatLng(59.9073, 10.75308)
-/*  var op1 = [59.9073, 10.75308];
-  var op2 = proj4("EPSG:3857", "EPSG:32633", op1);
-  log('op2 = proj4("EPSG:3857", "EPSG:32633", op1) | op1 | op2',op1, op2);
-  L.marker(op1).bindPopup('Operahuset epsg:3857 <br/> Leaflet default: '+String(op1)).addTo(app.map);*/
 
   $.ajax({
       url: "data/trafikkulykker02.nvdb.json"
@@ -72,25 +65,15 @@ var loadData = function(){
     //for (var i = 0; i < vegObr.length; i++) {
     for (var i = 0; i < vegObr.length; i++) {
       var vo = vegObr[i];
-      var wkt33 = vo.lokasjon || vo.lokasjon.geometriUtm33 ? vo.lokasjon.geometriUtm33 : false;
+      // var wkt33 = vo.lokasjon || vo.lokasjon.geometriUtm33 ? vo.lokasjon.geometriUtm33 : false;
       var wkt84 = vo.lokasjon || vo.lokasjon.geometriWgs84 ? vo.lokasjon.geometriWgs84 : false;
-      //log(vo.objektId,vo.objektTypeId,vo.lokasjon.geometriUtm33);
-      // log('wkt', typeof wkt, wkt);
-      var srcGeom = wkt33 ? wellknown.parse(wkt33) : false;
-      var dstCoords;
-/*      if(typeof srcGeom === 'object' && srcGeom !== null){
-        //log( "srcGeom: " + wkt + ' | ' + String(srcGeom.coordinates) );
-        log( "srcGeom: ", wkt33, String(srcGeom.coordinates) );
-        dstCoords = proj4("EPSG:32633", "EPSG:3857", srcGeom.coordinates);
-        // dstCoords = proj4("EPSG:32633", "EPSG:3857", [srcGeom.coordinates[1], srcGeom.coordinates[0]]);
-        log('dstGeom: ' + String(dstCoords));
-        // L.marker(dstCoords).addTo(app.map)
-      }*/
+      // var srcGeom = wkt33 ? wellknown.parse(wkt33) : false;
       var wkt84Geom = wkt84 ? wellknown.parse(wkt84) : false;
-      log('wkt84Geom', String(wkt84Geom.coordinates));
+      // log('wkt84Geom', String(wkt84Geom.coordinates));
       if(wkt84Geom && wkt84Geom.coordinates){
-        var latlng = [ wkt84Geom.coordinates[1],wkt84Geom.coordinates[0] ];
+        var latlng = [ wkt84Geom.coordinates[1], wkt84Geom.coordinates[0] ];
         var infoarr = [vo.lokasjon.kommune.navn, vo.lokasjon.fylke.navn, vo.lokasjon.region.navn];
+        // log( 'https://www.vegvesen.no/nvdb/api' + vo.self.uri );
         L.marker(latlng)
         .bindPopup( infoarr.join('<br/>') )
         .addTo(app.map) 
@@ -98,30 +81,6 @@ var loadData = function(){
     }; // for
 
   }); // ajax done
-
-  // Papaparse csv approach
-/*  Papa.parse("../data/trafikkulykker03.nvdb.csv", {
-    download: true,
-    worker: true,
-    header: true,
-    step: function(row) {
-      //log("Row:", row.data);
-      var wkt = row.data[0]["Geometri, punkt"];
-      if(typeof wkt === 'string'){
-        var srcGeom = wellknown.parse(wkt), dstCoords;
-        if(typeof srcGeom === 'object' && srcGeom !== null){
-          log("Geometri, punkt:", wkt, srcGeom.coordinates);
-          dstCoords = proj4("EPSG:32633", "EPSG:3857", srcGeom.coordinates);
-          // dstCoords = proj4("EPSG:32633", "EPSG:3857", [srcGeom.coordinates[1], srcGeom.coordinates[0]]);
-          log('dstGeom',dstCoords);
-          L.marker(dstCoords).addTo(app.map)
-        }
-      }
-    },
-    complete: function() {
-      log("All done!");
-    }
-  });*/
 
 };
 
