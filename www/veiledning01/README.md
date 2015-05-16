@@ -24,33 +24,33 @@ eller bruk alternativt hosted versjon av filene:
 Html dokumentet skal inneholde et element som kartet renderes i, her `<div class="map" id="map"></div>`, deretter lages et kart med 3 lag - se [js/eks01.js](js/eks01.js):
 
 ```js
-  var layers = [];
-  var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-  });
-  var watercoler = L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg', {
-      attribution: '&copy; <a href="">...</a>'
-  });
-  var toner = L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.jpg', {
-      attribution: '&copy; <a href="">...</a>'
-  });
-  layers.push(osm, watercoler, toner);
-  var map = app.map = L.map('map', {
-      center: [59.91235, 10.7357]
-    , zoom: 11
-    , layers: layers
-  })
+var layers = [];
+var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+});
+var watercoler = L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg', {
+    attribution: '&copy; <a href="">...</a>'
+});
+var toner = L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.jpg', {
+    attribution: '&copy; <a href="">...</a>'
+});
+layers.push(osm, watercoler, toner);
+var map = app.map = L.map('map', {
+    center: [59.91235, 10.7357]
+  , zoom: 11
+  , layers: layers
+})
 ```
 Hvis du tester siden i din nettleser nå, vil du se, at det siste laget legger seg øverst og de andre lag ikke kan sees. For å kunne skiftet mellom lagene, tilføyes et verktøy til å skifte lag:
 
 ```js
-  var baseMaps = {
-      "Open Street Map": osm
-    , "Vannfarge": watercoler
-    , "Toner": toner
-  };
-  var overlays = {};
-  L.control.layers(baseMaps, overlays).addTo(map);
+var baseMaps = {
+    "Open Street Map": osm
+  , "Vannfarge": watercoler
+  , "Toner": toner
+};
+var overlays = {};
+L.control.layers(baseMaps, overlays).addTo(map);
 ```
 
 Voila, du har nå et simpelt kart på siden din som ser slik ut:
@@ -100,7 +100,7 @@ Vegvesenet har en service med data fra NVDB - servicen har et REST API og man ka
 Dette er et datasett med trafikkulykker fra hele landet, og vi har lagt en kopi av data her:
 `data/trafikkulykker02.nvdb.json`
 
-Følg med i koden i [eksempel02.html](eksempel02.html) og i [js/eks02.js](js/eks02.js). I dette eksemplet skal vi bruke andre komponenter - jQuery og wellknown:
+Følg med i koden i [eksempel02.html](eksempel02.html) og i [js/eks02.js](js/eks02.js). I dette eksemplet skal vi bruke andre komponenter - jQuery og [wellknown](https://github.com/mapbox/wellknown):
 ```html
   <script type="text/javascript" src="js/vendor/wellknown.js"></script> 
   <script type="text/javascript" src="js/vendor/jquery.min.js"></script>
@@ -108,13 +108,13 @@ Følg med i koden i [eksempel02.html](eksempel02.html) og i [js/eks02.js](js/eks
 Først hentes json data vha jQuery ajax:
 
 ```js
-  $.ajax({
-      url: "data/trafikkulykker02.nvdb.json"
-    , dataType: "json"
-  })
-  .done(function(data){
-    ...
-  });
+$.ajax({
+    url: "data/trafikkulykker02.nvdb.json"
+  , dataType: "json"
+})
+.done(function(data){
+  ⋮
+});
 ```
 
 Koordinatene finnes i to formater i dette datasettet - hhv geometriWgs84 og geometriUtm33. Leaflet bruker i utgangspunktet WGS84 decimalgrader, og vi trenger derfor denne verdien. Den finnes her i et format kallet WKT (Well Known Text) og ser fx slik ut `POINT (484397.5 7363534.1)`. Når data returneres løpes gjennom alle vegobjekter, koordinatene finnes, behandles og legges til kartet som markører, vær oppmerksom på at Leaflet vil ha koordinatene i motsatt rekkefølge:
@@ -130,6 +130,8 @@ for (var i = 0; i < vegObr.length; i++) {
   if(wkt84Geom && wkt84Geom.coordinates){
     // Leaflet vil ha koordinatene i motsatt rekkefølge av det wellknown leverer:
     var latlng = [ wkt84Geom.coordinates[1], wkt84Geom.coordinates[0] ];
+  ⋮
+}
 ```
 
 En markør kan ha en popup med valgri tekst som vises når det klikkes på den:
@@ -162,3 +164,31 @@ m.on('popupclose', function(e){
 
 Du har nå et kart som ser slik ut:
 ![eks01a](img/eks02a.jpg)
+
+## Eksempel 3
+
+### Lag "Point Clusters"
+
+Som du ser på kartet ovenfor, blir det uoversiktlig når mange punkter ligger nær hverandre på kartet. Det kan derfor være lurt å bruke såkalte "point clusters" eller punkt-klynger. Til dette bruker vi komponenten [Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster) - det krever litt mer javascript og css:
+```html
+<script type="text/javascript" src="js/vendor/leaflet.markercluster-src.js"></script>
+<link rel="stylesheet" type="text/css" href="css/MarkerCluster.css">
+<link rel="stylesheet" type="text/css" href="css/MarkerCluster.Default.css">
+```
+
+For å få til punkt-klyngene, må vi endre litt på koden fra før - se [eksempel03.html](eksempel03.html) og [css/eks03.js](css/eks03.js). 
+
+```js
+var mcg = new L.MarkerClusterGroup();
+⋮
+var m = L.marker(latlng).bindPopup( poparr.join('<br/>') );
+mcg.addLayer(m);
+⋮
+app.map.addLayer(mcg);
+```
+
+I stedet for å tilføye hver markør til kartet, tilføyes de en instans av MarkerClusterGroup som til slutt tilføyes kartet. 
+
+Slik får du til et kart med marker clusters som på bildene her:
+![eks03a.png](img/eks03a.png)
+![eks03b.png](img/eks03a.png)

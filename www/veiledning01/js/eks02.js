@@ -45,7 +45,7 @@ var createMap = function(){
   });
 };
 
-var loadData = function(){
+var addData = function(){
 
 /*
   Two different definitions of same epsg id at http://spatialreference.org/ref/?search=epsg%3A3857 :
@@ -98,13 +98,10 @@ var loadData = function(){
 
 };
 
-//$(document).ready(function(){
 window.onload = function(){
-  //$(document.body).append('testing jquery');
   createMap();
-  loadData();
+  addData();
 };
-//});
 
 
 })(); // wrap

@@ -45,9 +45,9 @@ var createMap = function(){
   });
 };
 
-var loadData = function(){
+var addData = function(){
 
-  var mcg = app.markerClusterGroup = new L.MarkerClusterGroup();
+  var mcg = new L.MarkerClusterGroup();
 
   $.ajax({
       url: "data/trafikkulykker02.nvdb.json"
@@ -65,32 +65,26 @@ var loadData = function(){
         // Leaflet vil ha koordinatene i motsatt rekkefølge av det wellknown leverer:
         var latlng = [ wkt84Geom.coordinates[1], wkt84Geom.coordinates[0] ];
 
-        var poparr = [vo.lokasjon.kommune.navn, vo.lokasjon.fylke.navn, vo.lokasjon.region.navn];
-        var m = L.marker(latlng)
-          .bindPopup( poparr.join('<br/>') )
-        mcg.addLayer(m);
-
         // Lag simpel info om hver ulykke og legg det til marker i kartet 
         // med popup, som tilføyes kartet:
-        // var poparr = [vo.lokasjon.kommune.navn, vo.lokasjon.fylke.navn, vo.lokasjon.region.navn];
-        // var m = L.marker(latlng)
-        //   .bindPopup( poparr.join('<br/>') )
-        //   .addTo(app.map);
+        var poparr = [vo.lokasjon.kommune.navn, vo.lokasjon.fylke.navn, vo.lokasjon.region.navn];
+        var m = L.marker(latlng).bindPopup( poparr.join('<br/>') );
+        mcg.addLayer(m);
 
-        // // Hvert vegobjekt inneholder en rekke egenskaper som kan vises i separat box:
-        // var $info = $('#info'), info = '<table>', egarr = vo.egenskaper;
-        // for (var j = 0; j < egarr.length; j++) {
-        //   var eg = egarr[j], infoarr = [ eg['navn'], eg['verdi']]; 
-        //   info += '<tr><td>' + infoarr.join('</td><td>') + '</td></tr>';
-        // };
-        // m.nvdbInfoTxt = info + '</table>';
-        // // Vis info tekst når markørense popup åpnes og slett teksten når den lukkes:
-        // m.on('popupopen', function(e) {
-        //   $info.text('').append(e.target.nvdbInfoTxt);
-        // });
-        // m.on('popupclose', function(e){
-        //   $info.text('');
-        // });
+        // Hvert vegobjekt inneholder en rekke egenskaper som kan vises i separat box:
+        var $info = $('#info'), info = '<table>', egarr = vo.egenskaper;
+        for (var j = 0; j < egarr.length; j++) {
+          var eg = egarr[j], infoarr = [ eg['navn'], eg['verdi']]; 
+          info += '<tr><td>' + infoarr.join('</td><td>') + '</td></tr>';
+        };
+        m.nvdbInfoTxt = info + '</table>';
+        // Vis info tekst når markørense popup åpnes og slett teksten når den lukkes:
+        m.on('popupopen', function(e) {
+          $info.text('').append(e.target.nvdbInfoTxt);
+        });
+        m.on('popupclose', function(e){
+          $info.text('');
+        });
 
       }
     }; // for vegObr
@@ -101,13 +95,10 @@ var loadData = function(){
 
 }; // loadData
 
-//$(document).ready(function(){
 window.onload = function(){
-  //$(document.body).append('testing jquery');
   createMap();
-  loadData();
+  addData();
 };
-//});
 
 
 })(); // wrap
