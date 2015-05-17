@@ -29,10 +29,10 @@ var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 });
 var watercoler = L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg', {
-    attribution: '&copy; <a href="">...</a>'
+    attribution: '&copy; <a href="http://maps.stamen.com">Stamen</a>'
 });
 var toner = L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.jpg', {
-    attribution: '&copy; <a href="">...</a>'
+    attribution: '&copy; <a href="http://maps.stamen.com">Stamen</a>'
 });
 layers.push(osm, watercoler, toner);
 var map = app.map = L.map('map', {
@@ -57,37 +57,6 @@ Voila, du har nå et simpelt kart på siden din som ser slik ut:
 
 ![eks01a](img/eks01b.jpg)
 
-<!-- 
-## Kart-projeksjoner og konvertering
-
-Jorden er en kule og både papir og skjerme er flat - og det finnes derfor mange måter å projisere data fra kule til flate på. Både leaflet og lignende (fx OpenLayers, Google Maps mv) bruker som utgangspunkt en Mercator-projeksjon med koden "EPSG:3857", mens det er vanlig i Norge å bruke UTM projeksjoner som er tilpasset lokalt bruk. Disse har fx koder som "EPSG:25832", "EPSG:32632", "EPSG:25833" og "EPSG:32633".
-
-Åpne data fra fx Statens Kartverk mv er ofte tilgjengelig i disse projeksjoner, og kan derfor være nødvendig å konvertere mellom forskjellige projeksjoner. Det kan gjøres på mange måter, vil vi gjøre det med en javascript-komponent kallet [Proj4js](http://proj4js.org/).
-
-Vi skal ikke gå i dybden med projeksjoner i denne veiledning, men her er en kort oversikt over noen fordeler og ulemper:
-
-#### Mercator
-* Fordeler:
-  * Globalt koordinatsystem.
-  * Viser lett hele kloden på et kart.
-* Ulemper:
-  * Områder langt fra ekvator vises svært forvrengt.
-  * Koordinatsystemet er ikke kvadratisk.
-  * Enheten for koordinater er grader, som kan være vanskelig å lage beregninger på.
-
-#### UTM
-* Fordeler:
-  * Enheten for koordinater er meter.
-  * Koordinatsystemet er kvadratisk.
-* Ulemper:
-  * Koordinatsystemet dekker et begrenset område, en såkalt UTM-zone.
-
-Vil du vite mer om forskjellige koordinatsystem, kan du bla lese mer her ... [savner linker](http://foo.bar/):
-* http://www.sharpgis.net/post/2007/05/05/Spatial-references2c-coordinate-systems2c-projections2c-datums2c-ellipsoids-e28093-confusing
-* https://en.wikipedia.org/wiki/Spatial_reference_system
-* http://communityhub.esriuk.com/journal/2012/3/26/coordinate-systems-and-projections-for-beginners.html
- -->
-
 ## Eksempel 2
 
 ### Legg på data fra NVDB
@@ -100,7 +69,7 @@ Vegvesenet har en service med data fra NVDB - servicen har et REST API og man ka
 Dette er et datasett med trafikkulykker fra hele landet, og vi har lagt en kopi av data her:
 `data/trafikkulykker02.nvdb.json`
 
-Følg med i koden i [eksempel02.html](eksempel02.html) og i [js/eks02.js](js/eks02.js). I dette eksemplet skal vi bruke andre komponenter - jQuery og [wellknown](https://github.com/mapbox/wellknown):
+Følg med i koden i [eksempel02.html](eksempel02.html) og i [js/eks02.js](js/eks02.js). I dette eksemplet skal vi bruke andre komponenter - [jQuery](https://jquery.com/) og [wellknown](https://github.com/mapbox/wellknown):
 ```html
   <script type="text/javascript" src="js/vendor/wellknown.js"></script> 
   <script type="text/javascript" src="js/vendor/jquery.min.js"></script>
@@ -113,19 +82,18 @@ $.ajax({
   , dataType: "json"
 })
 .done(function(data){
-  ⋮
+  // ...
 });
 ```
 
-Koordinatene finnes i to formater i dette datasettet - hhv geometriWgs84 og geometriUtm33. Leaflet bruker i utgangspunktet WGS84 decimalgrader, og vi trenger derfor denne verdien. Den finnes her i et format kallet WKT [(Well Known Text)](http://en.wikipedia.org/wiki/Well-known_text). WKT kan indeholde forskjellige geometrityper, men i disse data er det kun punkter:
+Koordinatene finnes i to formater i dette datasettet - hhv geometriWgs84 og geometriUtm33 - les evt mer om [kartprojeksjoner og koordinatsystem her](projeksjoner.md). Leaflet bruker i utgangspunktet WGS84 decimalgrader, og vi trenger derfor denne verdien. Den finnes her i et format kallet WKT [(Well Known Text)](http://en.wikipedia.org/wiki/Well-known_text). I disse data er det bare punkter, men WKT kan indeholde forskjellige geometrityper, her er noen eksempler:
 ```js
-"POINT (484397.5 7363534.1)";
+"POINT (30 10)";
 "LINESTRING (30 10, 10 30, 40 40)";
 "POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))";
-
 ```
 
-Når data returneres løpes gjennom alle vegobjekter, koordinatene finnes, behandles og legges til kartet som markører, vær oppmerksom på at Leaflet vil ha koordinatene i motsatt rekkefølge:
+Når data returneres løpes gjennom alle vegobjekter, koordinatene finnes, behandles og legges til kartet som markører, vær oppmerksom på at Leaflet vil ha koordinatene i motsatt rekkefølge. WKT og andre moderne formater følger vitenskapelig tradisjon som skriver x-koordinaten først og deretter y-koordinaten - mens Leaflet i utgangspunktet bruker tradisjonell lengde/breddegrad, hvor y (lengdegrad) kommer før x (breddegrad):
 
 ```js
 var vegObr = data.resultater[0].vegObjekter;
@@ -138,7 +106,7 @@ for (var i = 0; i < vegObr.length; i++) {
   if(wkt84Geom && wkt84Geom.coordinates){
     // Leaflet vil ha koordinatene i motsatt rekkefølge av det wellknown leverer:
     var latlng = [ wkt84Geom.coordinates[1], wkt84Geom.coordinates[0] ];
-  ⋮
+  // ...
 }
 ```
 
@@ -156,14 +124,13 @@ Data kan også vises et annet sted på websiden. Dette datasettet inneholder mas
 ```
 var $info = $('#info'), info = '<table>', egarr = vo.egenskaper;
 for (var j = 0; j < egarr.length; j++) {
-  var eg = egarr[j], infoarr = [ eg['navn'], eg['verdi']]; 
-  info += '<tr><td>' + infoarr.join('</td><td>') + '</td></tr>';
+  var eg = egarr[j]; //, infoarr = [ eg['navn'], eg['verdi']]; 
+  info += '<tr><td>' + eg['navn'] + '</td><td>' + eg['verdi'] + '</td></tr>';
 };
 m.nvdbInfoTxt = info + '</table>';
-m.nvdbInfoTxt = info;
-// Vis info tekst når markørense popup åpnes og slett teksten når den lukkes:
+// Vis info tekst når markørens popup åpnes og slett teksten når den lukkes:
 m.on('popupopen', function(e) {
-  $info.text('').append(e.target.nvdbInfoTxt);
+  $info.html(e.target.nvdbInfoTxt);
 });
 m.on('popupclose', function(e){
   $info.text('');
@@ -188,10 +155,10 @@ For å få til punkt-klyngene, må vi endre litt på koden fra før - se [eksemp
 
 ```js
 var mcg = new L.MarkerClusterGroup();
-⋮
+// ...
 var m = L.marker(latlng).bindPopup( poparr.join('<br/>') );
 mcg.addLayer(m);
-⋮
+// ...
 app.map.addLayer(mcg);
 ```
 

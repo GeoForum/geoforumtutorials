@@ -18,10 +18,10 @@ var createMap = function(){
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
   });
   var watercoler = L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg', {
-      attribution: '&copy; <a href="">...</a>'
+      attribution: '&copy; <a href="http://maps.stamen.com">Stamen</a>'
   });
   var toner = L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.jpg', {
-      attribution: '&copy; <a href="">...</a>'
+      attribution: '&copy; <a href="http://maps.stamen.com">Stamen</a>'
   });
   // Lag et kart og tilføy første lag:
   var map = app.map = L.map('map', {

@@ -18,10 +18,10 @@ var createMap = function(){
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
   });
   var watercoler = L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg', {
-      attribution: '&copy; <a href="">...</a>'
+      attribution: '&copy; <a href="http://maps.stamen.com">Stamen</a>'
   });
   var toner = L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.jpg', {
-      attribution: '&copy; <a href="">...</a>'
+      attribution: '&copy; <a href="http://maps.stamen.com">Stamen</a>'
   });
   // Lag et kart og tilføy første lag:
   var map = app.map = L.map('map', {
@@ -78,7 +78,7 @@ var addData = function(){
           info += '<tr><td>' + eg['navn'] + '</td><td>' + eg['verdi'] + '</td></tr>';
         };
         m.nvdbInfoTxt = info + '</table>';
-        // Vis info tekst når markørense popup åpnes og slett teksten når den lukkes:
+        // Vis info tekst når markørens popup åpnes og slett teksten når den lukkes:
         m.on('popupopen', function(e) {
           $info.html(e.target.nvdbInfoTxt);
         });
