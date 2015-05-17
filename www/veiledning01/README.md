@@ -61,7 +61,7 @@ Voila, du har nå et simpelt kart på siden din som ser slik ut:
 
 ### Legg på data fra NVDB
 
-Vegvesenet har en service med data fra NVDB - servicen har et REST API og man kan hente ut data fx på denne mådten:
+Vegvesenet har en service med data fra [NVDB](https://www.vegvesen.no/nvdb/api/dokumentasjon) - servicen har et REST API og man kan hente ut data fx på denne mådten:
 
 * Kan hentes i json format med [dette link](https://www.vegvesen.no/nvdb/api/sok.json?kriterie=%7B%22lokasjon%22:%7B%22bbox%22:%22-1349369,6171067,2549369,8278933%22%7D,%22objektTyper%22:%5B%7B%22id%22:570,%22filter%22:%5B%7B%22type%22:%22Alvorligste%20skadegrad%22,%22operator%22:%22=%22,%22verdi%22:%5B%22Drept%22%5D%7D,%7B%22type%22:%22Ulykkesdato%22,%22operator%22:%22%3E=%22,%22verdi%22:%5B%222015-01-01%22%5D%7D%5D%7D%5D%7D)
 * Kan hentes i xml format med [dette link](https://www.vegvesen.no/nvdb/api/sok?kriterie=%7B%22lokasjon%22:%7B%22bbox%22:%22-1349369,6171067,2549369,8278933%22%7D,%22objektTyper%22:%5B%7B%22id%22:570,%22filter%22:%5B%7B%22type%22:%22Alvorligste%20skadegrad%22,%22operator%22:%22=%22,%22verdi%22:%5B%22Drept%22%5D%7D,%7B%22type%22:%22Ulykkesdato%22,%22operator%22:%22%3E=%22,%22verdi%22:%5B%222015-01-01%22%5D%7D%5D%7D%5D%7D)
@@ -111,7 +111,7 @@ for (var i = 0; i < vegObr.length; i++) {
 ```
 
 En markør kan ha en popup med valgfri tekst/html som vises når det klikkes på den:
-```
+```js
 // Lag simpel info om hver ulykke og legg det til marker i kartet 
 // med popup, som tilføyes kartet:
 var poparr = [vo.lokasjon.kommune.navn, vo.lokasjon.fylke.navn, vo.lokasjon.region.navn];
@@ -121,7 +121,7 @@ var m = L.marker(latlng)
 ```
 
 Data kan også vises et annet sted på websiden. Dette datasettet inneholder masse ekstra informasjon under "egenskaper". Både [markør](http://leafletjs.com/reference.html#marker) og [popup](http://leafletjs.com/reference.html#popup) har diverse [events](http://leafletjs.com/reference.html#events), man kan hefte ønsket funksjonalitet på - i dette eksemplet lagres informasjonen på markøren og vises i "info" elementet, når det klikkes på markøren:
-```
+```js
 var $info = $('#info'), info = '<table>', egarr = vo.egenskaper;
 for (var j = 0; j < egarr.length; j++) {
   var eg = egarr[j]; //, infoarr = [ eg['navn'], eg['verdi']]; 
