@@ -81,16 +81,16 @@ var addData = function(){
         var $info = $('#info'), info = '<table>', egarr = vo.egenskaper;
         for (var j = 0; j < egarr.length; j++) {
           var eg = egarr[j], infoarr = [ eg['navn'], eg['verdi']]; 
-          info += '<tr><td>' + infoarr.join('</td><td>') + '</td></tr>';
+          info += '<tr><td>' + eg['navn'] + '</td><td>' + eg['verdi'] + '</td></tr>';
         };
         m.nvdbInfoTxt = info + '</table>';
         // Vis info tekst når markørense popup åpnes og slett teksten når den lukkes:
         m.on('popupopen', function(e) {
-          $info.text('').append(e.target.nvdbInfoTxt);
+          $info.html(e.target.nvdbInfoTxt);
         });
-        m.on('popupclose', function(e){
-          $info.text('');
-        });
+        // m.on('popupclose', function(e){
+        //   $info.text('');
+        // });
       }
     }; // for vegObr
 

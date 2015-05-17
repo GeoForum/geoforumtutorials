@@ -117,7 +117,15 @@ $.ajax({
 });
 ```
 
-Koordinatene finnes i to formater i dette datasettet - hhv geometriWgs84 og geometriUtm33. Leaflet bruker i utgangspunktet WGS84 decimalgrader, og vi trenger derfor denne verdien. Den finnes her i et format kallet WKT (Well Known Text) og ser fx slik ut `POINT (484397.5 7363534.1)`. Når data returneres løpes gjennom alle vegobjekter, koordinatene finnes, behandles og legges til kartet som markører, vær oppmerksom på at Leaflet vil ha koordinatene i motsatt rekkefølge:
+Koordinatene finnes i to formater i dette datasettet - hhv geometriWgs84 og geometriUtm33. Leaflet bruker i utgangspunktet WGS84 decimalgrader, og vi trenger derfor denne verdien. Den finnes her i et format kallet WKT [(Well Known Text)](http://en.wikipedia.org/wiki/Well-known_text). WKT kan indeholde forskjellige geometrityper, men i disse data er det kun punkter:
+```js
+"POINT (484397.5 7363534.1)";
+"LINESTRING (30 10, 10 30, 40 40)";
+"POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))";
+
+```
+
+Når data returneres løpes gjennom alle vegobjekter, koordinatene finnes, behandles og legges til kartet som markører, vær oppmerksom på at Leaflet vil ha koordinatene i motsatt rekkefølge:
 
 ```js
 var vegObr = data.resultater[0].vegObjekter;
@@ -134,7 +142,7 @@ for (var i = 0; i < vegObr.length; i++) {
 }
 ```
 
-En markør kan ha en popup med valgri tekst som vises når det klikkes på den:
+En markør kan ha en popup med valgfri tekst/html som vises når det klikkes på den:
 ```
 // Lag simpel info om hver ulykke og legg det til marker i kartet 
 // med popup, som tilføyes kartet:
@@ -191,4 +199,4 @@ I stedet for å tilføye hver markør til kartet, tilføyes de en instans av Mar
 
 Slik får du til et kart med marker clusters som på bildene her:
 ![eks03a.png](img/eks03a.png)
-![eks03b.png](img/eks03a.png)
+![eks03b.png](img/eks03b.png)
