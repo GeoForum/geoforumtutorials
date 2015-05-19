@@ -38,10 +38,14 @@ for (var i = 0; i < files.length; i++) {
 };
 
 var demoDirs = [
-   'www/veiledning01/'
+/*   'www/veiledning01/'
   ,'www/veiledning02/'
   ,'www/veiledning03/'
-  ,'www/veiledning04/'
+  ,'www/veiledning04/'*/
+   '../veiledning01/'
+  ,'../veiledning02/'
+  ,'../veiledning03/'
+  ,'../veiledning04/'
 ];
 
 for (var i = 0; i < demoDirs.length; i++) {
